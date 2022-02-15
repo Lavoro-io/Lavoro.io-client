@@ -1,0 +1,19 @@
+.od-btn{
+    background: none;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    min-width: 80px;
+    min-height: 40px;
+    margin: 10px;
+    font-variant-caps: unicase;
+    cursor: pointer;
+}
+
+.od-btn .flat-btn{
+
+}
+
+.od-btn .flat-btn:hover{
+    
+}
