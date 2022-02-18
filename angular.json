@@ -64,7 +64,9 @@
             "styles": [
               "projects/lavoro-io/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -138,5 +140,5 @@
       }
     }
   },
-  "defaultProject": "office-design"
+  "defaultProject": "lavoro-io"
 }
