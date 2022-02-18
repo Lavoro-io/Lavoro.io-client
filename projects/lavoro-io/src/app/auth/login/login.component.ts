@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AppManagerService } from 'projects/lavoro-io/src/app/services/app-manager.service';
 
 @Component({
-  selector: 'od-login',
+  selector: 'io-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
