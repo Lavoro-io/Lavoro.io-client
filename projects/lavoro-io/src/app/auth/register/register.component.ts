@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validator, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppManagerService } from 'projects/lavoro-io/src/app/services/app-manager.service';
 
@@ -12,28 +12,49 @@ export class RegisterComponent implements OnInit {
 
   isValid: boolean | undefined;
 
-  registerForm = new FormGroup({
-    name: new FormControl('Mario', Validators.required),
-    surname: new FormControl('Rossi', Validators.required),
-    email: new FormControl('mario.rossi@example.com', Validators.required),
-    password: new FormControl('12345678', [Validators.required, Validators.minLength(8)]),
-    confirm_password: new FormControl('12345678', Validators.required)
-  })
+  registerForm = new FormGroup({});
 
   constructor(private appManager: AppManagerService,
-              private router: Router) { }
+              private router: Router,
+              private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.registerForm = this.fb.group({
+      name: new FormControl('Mario', Validators.required),
+      surname: new FormControl('Rossi', Validators.required),
+      email: new FormControl('mario.rossi@example.com', Validators.required),
+      password: new FormControl('12345678', [Validators.required, Validators.minLength(8)]),
+      confirm_password: new FormControl('12345678', [Validators.required]),
+    },
+    {
+      validator: this.MatchPassword('password','confirm_password')
+    })
   }
 
   onSubmit(){
-    this.isValid = this.registerForm.value.password === this.registerForm.value.confirm_password;
+    this.isValid = this.registerForm.valid;
+    console.log(this.registerForm);
 
     if(this.isValid){
       //send confirmation email
       setTimeout(()=>{
         this.router.navigate(['auth/login'])
       },5000);
+    }
+  }
+
+  private MatchPassword(controlName: string, matchingControlName: string){
+    return (formGroup: FormGroup) => {
+        const control = formGroup.controls[controlName];
+        const matchingControl = formGroup.controls[matchingControlName];
+        if (matchingControl.errors && !matchingControl.errors['required']) {
+            return;
+        }
+        if (control.value !== matchingControl.value) {
+            matchingControl.setErrors({required: true});
+        } else {
+            matchingControl.setErrors(null);
+        }
     }
   }
 }

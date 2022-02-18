@@ -1,10 +1,11 @@
 <div class="position-relative top-50 translate-middle-y">
-  <form class="row g-4 needs-validation " [ngClass]="{'was-validated': isValid !== undefined}" [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+  <form class="row g-4 needs-validation" [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+  <!-- <form class="row g-4 needs-validation " [ngClass]="{'was-validated': isValid !== undefined}" [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate> -->
 
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" [hidden]="isValid || isValid === undefined">
+    <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert" [hidden]="isValid || isValid === undefined">
       Passwords are not matching!
       <button type="button" class="btn-close" (click)="isValid = undefined"></button>
-    </div>
+    </div> -->
 
     <div class="alert alert-success alert-dismissible fade show" role="alert" [hidden]="!isValid || isValid === undefined">
       Register successfully! <br/>
@@ -13,25 +14,25 @@
     </div>
 
     <div class="col-md-6">
-      <label for="validationCustom01" for="inputEmail4" class="form-label">Name</label>
-      <input type="text" class="form-control " formControlName="name" id="validationCustom01" required>
+      <label class="form-label">Name</label>
+      <input type="text" class="form-control" formControlName="name" required>
     </div>
     <div class="col-md-6">
-      <label for="inputEmail4" class="form-label">Surname</label>
+      <label class="form-label">Surname</label>
       <input type="text" class="form-control" formControlName="surname" required>
     </div>
 
     <div class="col-12">
-      <label for="inputEmail4" class="form-label">Email</label>
+      <label class="form-label">Email</label>
       <input type="email" class="form-control" formControlName="email" required>
     </div>
 
     <div class="col-md-6">
-      <label for="inputPassword4" class="form-label">Password</label>
+      <label class="form-label">Password (Min length: 8)</label>
       <input type="password" class="form-control" formControlName="password" required>
     </div>
     <div class="col-md-6">
-      <label for="inputPassword4" class="form-label">Confirm Password</label>
+      <label class="form-label">Confirm Password</label>
       <input type="password" class="form-control" formControlName="confirm_password" required>
     </div>
 
