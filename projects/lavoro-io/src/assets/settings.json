@@ -1,7 +1,7 @@
 {
     "user":{
         "username": "dev",
-        "password": "dev"    
+        "password": "12345678"    
     },
     "jwt":{
         "key":"qwertyuiopasdfghjklzxcvbnm123456",
