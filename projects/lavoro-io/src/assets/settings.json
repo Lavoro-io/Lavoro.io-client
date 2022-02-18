@@ -2,5 +2,9 @@
     "user":{
         "username": "dev",
         "password": "dev"    
+    },
+    "jwt":{
+        "key":"qwertyuiopasdfghjklzxcvbnm123456",
+        "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsYXZvcm8taW8iLCJpYXQiOjE2NDUxNzUzMjEsImV4cCI6MTY3NjcxMTIxMSwiYXVkIjoibG9jYWxob3N0OjQyMDAiLCJzdWIiOiIzNG4zLTVzZDQtNXNzNC1lZDI0IiwiVXNlcm5hbWUiOiJkZXYifQ.Hm2whw5R9eaP9tTn5y-a1CuWOvD2vd0cU7JNOAg6KWE"
     }
 }
