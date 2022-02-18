@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 export class PagesComponent implements OnInit {
 
   isLogged: boolean = this.authService.isAuthenticated();
+  user: any = this.authService.getUser();
 
   constructor(private authService: AuthService) { }
 
