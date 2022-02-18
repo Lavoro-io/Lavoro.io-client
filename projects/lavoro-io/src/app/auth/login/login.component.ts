@@ -10,9 +10,11 @@ import { AppManagerService } from 'projects/lavoro-io/src/app/services/app-manag
 })
 export class LoginComponent implements OnInit {
 
+  isValid: boolean | undefined;
+
   loginForm = new FormGroup({
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required)
+    email: new FormControl('dev', Validators.required),
+    password: new FormControl('12345678', [Validators.required,Validators.minLength(8)])
   })
 
   constructor(private appManager: AppManagerService,
@@ -23,15 +25,16 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     const user = this.appManager.getSettings().user;
-    const isLogged = (user.username === this.loginForm.value.email) && (user.password === this.loginForm.value.password);
+    this.isValid = (user.username === this.loginForm.value.email) && (user.password === this.loginForm.value.password);
 
     const jwt = this.appManager.getSettings().jwt;
 
-    if(isLogged){
+    if(this.isValid){
       localStorage.setItem('token', jwt.token);
-      this.router.navigate(['pages']);
+
+      setTimeout(() => {
+        this.router.navigate(['pages']);
+      }, 1000);
     }
-    else 
-      console.log('username or password wrong');
   }
 }

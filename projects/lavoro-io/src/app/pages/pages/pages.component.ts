@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'io-pages',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PagesComponent implements OnInit {
 
-  constructor() { }
+  isLogged: boolean = false;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.isLogged = this.authService.isAuthenticated();
   }
 
 }

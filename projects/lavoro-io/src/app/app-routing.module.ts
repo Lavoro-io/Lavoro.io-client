@@ -21,15 +21,15 @@ const routes: Routes = [
   {
     path:'pages',
     component: PagesComponent,
-    canActivate: [AuthGuard],
     children:[
       {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
       },
       {
         path: 'test',
-        component: TestComponent
+        component: TestComponent,
+        canActivate: [AuthGuard]
       }
     ]
   },

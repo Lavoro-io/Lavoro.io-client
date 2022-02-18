@@ -13,11 +13,11 @@ export class RegisterComponent implements OnInit {
   isValid: boolean | undefined;
 
   registerForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    surname: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-    confirm_password: new FormControl('', Validators.required)
+    name: new FormControl('Mario', Validators.required),
+    surname: new FormControl('Rossi', Validators.required),
+    email: new FormControl('mario.rossi@example.com', Validators.required),
+    password: new FormControl('12345678', [Validators.required, Validators.minLength(8)]),
+    confirm_password: new FormControl('12345678', Validators.required)
   })
 
   constructor(private appManager: AppManagerService,
@@ -34,8 +34,6 @@ export class RegisterComponent implements OnInit {
       setTimeout(()=>{
         this.router.navigate(['auth/login'])
       },5000);
-    } else {
-      //show alert
     }
   }
 }

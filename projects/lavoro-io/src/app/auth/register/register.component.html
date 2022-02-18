@@ -7,8 +7,9 @@
     </div>
 
     <div class="alert alert-success alert-dismissible fade show" role="alert" [hidden]="!isValid || isValid === undefined">
-      Register successfully! You will be redirect in 5 seconds.
-      <!-- <button type="button" class="btn-close" (click)="isValid = undefined"></button> -->
+      Register successfully! <br/>
+      An email to <b>{{registerForm.value.email}}</b> has been sent. <br/>
+      You will be redirect in 5 seconds.
     </div>
 
     <div class="col-md-6">
@@ -34,14 +35,9 @@
       <input type="password" class="form-control" formControlName="confirm_password" required>
     </div>
 
-    <!-- <div class="col-12">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="gridCheck">
-        <label class="form-check-label" for="gridCheck">
-          Check me out
-        </label>
-      </div>
-    </div> -->
+    <div class="col-12">
+      Are you registered? <a routerLink="/auth/login">Login</a>
+    </div>
 
     <div class="d-grid gap-1 d-md-flex justify-content-md-end">
       <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Register</button>
