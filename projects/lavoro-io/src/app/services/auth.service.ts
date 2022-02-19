@@ -34,7 +34,7 @@ export class AuthService {
 
   public login(mail: string, password: string): boolean{
 
-    var user = users.users.filter(x => x.email === mail && x.password === password)[0];
+    var user = users.users.filter(x => x.email.toLowerCase() === mail.toLowerCase() && x.password === password)[0];
 
     if(user){
       localStorage.setItem('token', user.token);

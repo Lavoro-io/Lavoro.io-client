@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
               private appManager: AppManagerService) { }
 
   ngOnInit(): void {
-    this.subRouter = this.activeRouter.queryParams.subscribe((params:any) =>{
+    this.subRouter = this.activeRouter.params.subscribe((params:any) =>{
       this.uuid = params['uuid'];
 
       if(this.uuid === undefined) this.uuid = this.authService.getUser().sub;

@@ -26,8 +26,8 @@
             {{user?.Username}}
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
-            <li><a class="dropdown-item" href="#"><i class="bi bi-person-fill"></i> Profile</a></li>
-            <li><a class="dropdown-item" routerLink="/pages/profile" ><i class="bi bi-gear-fill"></i> Settings</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/pages/profile', user?.sub]" ><i class="bi bi-person-fill"></i> Profile</a></li>
+            <li><a class="dropdown-item"><i class="bi bi-gear-fill"></i> Settings</a></li>
             <li><a class="dropdown-item" (click)="logout()"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
           </ul>
         </div>

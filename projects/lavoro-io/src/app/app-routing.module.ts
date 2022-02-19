@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path:'',
     redirectTo: 'pages',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'pages',
@@ -30,6 +30,11 @@ const routes: Routes = [
       },
       {
         path: 'profile',
+        redirectTo: 'not-found',
+        pathMatch: 'full'
+      },
+      {
+        path: 'profile/:uuid',
         component: ProfileComponent,
       },
       {
