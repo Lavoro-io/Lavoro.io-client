@@ -36,7 +36,7 @@
     </div>
 </nav>
 
-<div class="navbar justify-content-end">
+<div class="navbar justify-content-end" *ngIf="isLogged">
   <ul class="nav">
     <li class="nav-item">
       <a class="nav-link" [routerLink]="['/pages/profile', user?.sub]"><i class="bi bi-person-lines-fill"></i> Contatti</a>
