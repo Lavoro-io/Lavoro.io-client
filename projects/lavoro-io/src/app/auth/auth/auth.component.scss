@@ -1,11 +1,11 @@
 .bg-auth{
-    // background: url("./../../../assets/img/teamwork.png");
+    background: url("./../../../assets/img/teamwork.png");
     background-size: contain;
     height: 100vh;
 }
 
 .content-auth{
-    width: auto;
+    width: fit-content;
     padding: 20px;
     height: 100%;
 }

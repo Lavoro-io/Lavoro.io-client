@@ -24,7 +24,7 @@ export class AuthService {
     this.router.navigate(['auth/login']);
   }
 
-  public getUser(){
+  public getLoggedUser(){
     if(this.isAuthenticated()){
       const data = this.jwtHelper.decodeToken(this.token);
       //console.log(data);
@@ -32,15 +32,15 @@ export class AuthService {
     }
   }
 
-  public login(mail: string, password: string): boolean{
+  public login(mail: string, password: string): any{
 
     var user = users.users.filter(x => x.email.toLowerCase() === mail.toLowerCase() && x.password === password)[0];
 
     if(user){
       localStorage.setItem('token', user.token);
-      return true;  
+      return user;  
     }
 
-    return false;
+    return null;
   }
 }

@@ -13,6 +13,8 @@ export class ProfileComponent implements OnInit {
   subRouter: any;
   uuid: string = '';
   user: any;
+  itsMe: boolean = false;
+  follow: boolean = false;
 
   constructor(private activeRouter: ActivatedRoute,
               private router: Router,
@@ -23,9 +25,13 @@ export class ProfileComponent implements OnInit {
     this.subRouter = this.activeRouter.params.subscribe((params:any) =>{
       this.uuid = params['uuid'];
 
-      if(this.uuid === undefined) this.uuid = this.authService.getUser().sub;
+      const loggedUser = this.authService.getLoggedUser();
+
+      if(this.uuid === undefined) this.uuid = loggedUser.sub;
 
       this.user = this.appManager.getUser(this.uuid);
+
+      if(this.uuid === loggedUser.sub) this.itsMe = true;
       
       if(this.user === undefined) this.router.navigate(['pages/not-found']);
 

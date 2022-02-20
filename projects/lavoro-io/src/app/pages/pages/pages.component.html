@@ -2,7 +2,7 @@
     <div class="container-fluid">
       <a class="navbar-brand" routerLink="/pages/home">
         <i class="bi bi-person-workspace"></i>
-        <!-- Lavoro.IO -->
+        Lavoro.IO
       </a>
 
       <div class="d-flex">
@@ -13,6 +13,7 @@
       </div>
 
       <div class="d-flex" *ngIf="isLogged">
+
         
         <button class="btn position-relative">
           <i class="bi bi-bell"></i>
@@ -34,4 +35,96 @@
       </div>
     </div>
 </nav>
+
+<div class="navbar justify-content-end">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/pages/profile', user?.sub]"><i class="bi bi-person-lines-fill"></i> Contatti</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/pages/profile', user?.sub]"><i class="bi bi-chat-left-dots"></i> Messaggi</a>
+    </li>
+  </ul>
+</div>
+
 <router-outlet></router-outlet>
+
+<!-- Footer -->
+<footer class="bg-dark text-left text-white">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!-- Section: Social media -->
+    <section class="mb-4 d-flex justify-content-center">
+      <!-- Facebook -->
+      <a class="btn btn-dark btn-floating m-1"><i class="bi bi-facebook"></i></a>
+      <!-- Telegram -->
+      <a class="btn btn-dark btn-floating m-1"><i class="bi bi-telegram"></i></a>
+      <!-- Telegram -->
+      <a class="btn btn-dark btn-floating m-1"><i class="bi bi-instagram"></i></a>
+    </section>
+    
+    <!-- Section: Social media -->
+
+    <!-- Section: Form -->
+    <form class="mb-4">
+      <!--Grid row-->
+      <div class="row d-flex justify-content-start">
+        <div class="col-md-4 col-12">
+          <label class="form-label" for="langSelect">Select language</label>
+          <select class="form-select" id="langSelect">
+            <option selected>English (United Kingdom)</option>
+            <option value="1">Italiano (Italia)</option>
+          </select>
+        </div>
+      </div>
+      <!--Grid row-->
+    </form>
+    <!-- Section: Form -->
+
+    <!-- Section: Text -->
+    <!-- <section class="mb-4">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
+        repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
+        eum harum corrupti dicta, aliquam sequi voluptate quas.
+      </p>
+    </section> -->
+    <!-- Section: Text -->
+
+    <!-- Section: Links -->
+    <!--Grid row-->
+    <div class="row">
+      <!--Grid column-->
+      <div class="col-lg-12 mb-4 mb-md-0">
+        <!-- <h5 class="text-uppercase">Links</h5> -->
+
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a href="#!" class="text-white">Information</a>
+          </li>
+          <li>
+            <a href="#!" class="text-white">Privacy and Terms</a>
+          </li>
+          <li>
+            <a href="#!" class="text-white">Support</a>
+          </li>
+          <li>
+            <a href="#!" class="text-white">FAQ</a>
+          </li>
+        </ul>
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+    <!-- Section: Links -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3">
+    © 2022 Copyright:
+    <a class="text-white" routerLink="/pages/home">Lavoro.IO</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
