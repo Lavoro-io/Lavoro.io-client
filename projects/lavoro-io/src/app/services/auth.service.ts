@@ -46,8 +46,8 @@ export class AuthService {
     var user = users.users.filter(x => x.email.toLowerCase() === email.toLowerCase() && x.password === password)[0];
 
     this.getToken(email, password).then((res:any) => {
-      console.log(res);
-      user.token = res
+      //console.log(this.jwtHelper.decodeToken(res)); JWT Token with UUID
+      //user.token = res
     });
     
     if(user){
