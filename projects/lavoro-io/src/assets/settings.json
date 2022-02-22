@@ -1,5 +1,6 @@
 {
     "jwt":{
         "key":"qwertyuiopasdfghjklzxcvbnm123456"
-    }
+    },
+    "IdentityProviderEndpoint":"https://localhost:7142/"
 }

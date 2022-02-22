@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   loginForm = new FormGroup({
     email: new FormControl('', Validators.required),
-    password: new FormControl('12345678', [Validators.required,Validators.minLength(8)])
+    password: new FormControl('12345678', [Validators.required,Validators.minLength(8), Validators.maxLength(32)])
   })
 
   constructor(private authService: AuthService,
@@ -28,9 +28,7 @@ export class LoginComponent implements OnInit {
 
     if(user !== null){
       this.isValid = true;
-      setTimeout(() => {
-        this.router.navigate(['pages/profile', user.uuid]);
-      }, 1000);
+      this.router.navigate(['pages/profile', user.uuid]);
     } else 
       this.isValid = false;
   }
