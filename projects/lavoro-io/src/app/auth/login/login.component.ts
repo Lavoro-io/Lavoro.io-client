@@ -24,12 +24,14 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
-    const user = this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
-
-    if(user !== null){
-      this.isValid = true;
-      this.router.navigate(['pages/profile', user.uuid]);
-    } else 
-      this.isValid = false;
+    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).then((user: any)=>{
+      if(user !== null){
+        this.isValid = true;
+        setTimeout(() => {
+          this.router.navigate(['pages/profile', user.userId]);
+        }, 1500);
+      } else 
+        this.isValid = false;  
+    });
   }
 }

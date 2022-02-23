@@ -27,7 +27,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
   declarations: [
     AppComponent,
     PagesComponent,
-    TestComponent,
+    //TestComponent,
     AuthComponent,
     LoginComponent,
     HomeComponent,

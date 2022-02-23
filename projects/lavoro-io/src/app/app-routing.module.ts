@@ -38,11 +38,11 @@ const routes: Routes = [
         component: ProfileComponent,
         canActivate: [AuthGuard]
       },
-      {
-        path: 'test',
-        component: TestComponent,
-        canActivate: [AuthGuard]
-      },
+      // {
+      //   path: 'test',
+      //   component: TestComponent,
+      //   canActivate: [AuthGuard]
+      // },
       {
         path: 'not-found',
         component: NotFoundComponent

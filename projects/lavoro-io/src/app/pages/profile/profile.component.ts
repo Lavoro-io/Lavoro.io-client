@@ -27,13 +27,15 @@ export class ProfileComponent implements OnInit {
 
       const loggedUser = this.authService.getLoggedUser();
 
-      if(this.uuid === undefined) this.uuid = loggedUser.sub;
+      if(this.uuid === undefined) this.uuid = loggedUser.userId;
 
-      this.user = this.appManager.getUser(this.uuid);
+      this.authService.getUser(this.uuid).then((user:any)=>{
+        this.user = user;
 
-      if(this.uuid === loggedUser.sub) this.itsMe = true;
-      
-      if(this.user === undefined) this.router.navigate(['pages/not-found']);
+        if(this.uuid === loggedUser.userId) this.itsMe = true;
+
+        if(this.user === undefined) this.router.navigate(['pages/not-found']);  
+      });
 
     });
   }

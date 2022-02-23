@@ -5,11 +5,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import users from './../../assets/mock/users.json';
 import settings from './../../assets/settings.json';
 
-const httpHeader = new HttpHeaders({
-    'Content-Type': 'application/json',
-})
-
 const authController = 'auth/';
+const userController = 'user';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +15,9 @@ const authController = 'auth/';
 export class AuthService {
 
   token: string | undefined;
+  httpHeader = new HttpHeaders({
+    'Content-Type': 'application/json',
+  });
 
   constructor(private jwtHelper: JwtHelperService,
               private router: Router,
@@ -25,37 +25,44 @@ export class AuthService {
 
   public isAuthenticated(): boolean{
     this.token = localStorage.getItem('token')?.toString();
+    this.httpHeader = this.httpHeader.append('Authorization', 'Bearer ' + this.token);
     const expired = this.jwtHelper.isTokenExpired(this.token);
     return !expired;
   }
 
   public logout(){
-    localStorage.removeItem('token');
+    localStorage.clear();
+    this.httpHeader.delete('')
     this.router.navigate(['auth/login']);
   }
 
   public getLoggedUser(){
     if(this.isAuthenticated()){
-      const data = this.jwtHelper.decodeToken(this.token);
+      const user = localStorage.getItem('user');
+      const data = JSON.parse(user ?? '{}');
       return data;
     }
   }
 
-  public login(email: string, password: string): any{
+  public login(email: string, password: string){
+    return new Promise((resolve)=>{
+      this.getToken(email, password).then((res:any) => {
 
-    var user = users.users.filter(x => x.email.toLowerCase() === email.toLowerCase() && x.password === password)[0];
+        const auth = JSON.parse(res);
 
-    this.getToken(email, password).then((res:any) => {
-      //console.log(this.jwtHelper.decodeToken(res)); JWT Token with UUID
-      //user.token = res
-    });
-    
-    if(user){
-      localStorage.setItem('token', user.token);
-      return user;  
-    }
-
-    return null;
+        this.token = auth.token;
+  
+        localStorage.setItem('token', this.token ?? '');
+        this.httpHeader = this.httpHeader.append('Authorization', 'Bearer ' + this.token);
+  
+        this.getUser(auth.uuid).then((userRes)=>{
+          const user = userRes;
+          localStorage.setItem('user', JSON.stringify(user));
+          //console.log(user);
+          resolve(user);
+        });
+      });  
+    })
   }
 
   private getToken(email: string, password: string){
@@ -66,11 +73,23 @@ export class AuthService {
         password: password
       }
 
-      return this.httpClient.post(settings.IdentityProviderEndpoint + authController + 'token', JSON.stringify(body), {headers: httpHeader, responseType: "text"})
-        .subscribe((res)=>{
+      return this.httpClient.post(settings.IdentityProviderEndpoint + authController + 'token', JSON.stringify(body), {headers: this.httpHeader, responseType: "text"})
+        .subscribe((res)=> {
           resolve(res);
         }, (err)=>{
           console.log(err);
+        })
+    });
+  }
+
+  public getUser(uuid: any){
+    return new Promise((resolve)=>{
+
+      return this.httpClient.get(settings.UserServiceEndpoint + userController + "?uuid=" + uuid, {headers: this.httpHeader})
+        .subscribe((res)=> {
+          resolve(res);
+        }, (err)=>{
+          resolve(undefined);
         })
     });
   }

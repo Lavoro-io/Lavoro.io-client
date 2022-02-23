@@ -1,6 +1,4 @@
 {
-    "jwt":{
-        "key":"qwertyuiopasdfghjklzxcvbnm123456"
-    },
-    "IdentityProviderEndpoint":"https://localhost:7142/"
+    "IdentityProviderEndpoint":"https://lvrio-identityprovider.azurewebsites.net/",
+    "UserServiceEndpoint":"https://10.10.4.21:7206/"
 }

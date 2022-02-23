@@ -18,8 +18,9 @@
                     </div>
                 </div>
                    
-                <h3 class="m-b-0">{{user?.email}}</h3>
-                <p>Web Designer &amp; Developer</p>
+                <h3 class="m-b-0">{{user?.name}} {{user?.surname}}</h3>
+                <!-- <p>Web Designer &amp; Developer</p> -->
+                <p>{{user?.email}}</p>
                 <div class="btn-group" role="group" [hidden]="itsMe">
                     <a (click)="follow = true" class="btn btn-primary" data-abc="true" *ngIf="!follow">Follow</a>
                     <a (click)="follow = false" class="btn btn-outline-primary" data-abc="true" *ngIf="follow"><i class="bi bi-check-lg"></i> Followed</a>
