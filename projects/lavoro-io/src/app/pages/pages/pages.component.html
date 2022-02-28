@@ -70,7 +70,7 @@
       <!--Grid row-->
       <div class="row d-flex justify-content-start">
         <div class="col-md-4 col-12">
-          <label class="form-label" for="langSelect">{{'SELECT_LANG' | translate}}</label>
+          <label class="form-label" for="langSelect">{{'PAGES.PAGES.SELECT_LANG' | translate}}</label>
           <select class="form-select" #selectedLanguage (change)="switchLanguage(selectedLanguage.value)">
             <option *ngFor="let language of translations" [value]="language.code">{{ language.title }}</option>
           </select>

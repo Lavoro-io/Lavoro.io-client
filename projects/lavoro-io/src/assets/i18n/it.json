@@ -1,3 +1,18 @@
 {
-    "SELECT_LANG":"Seleziona lingua"
+    "PAGES":{
+        "PAGES":{
+            "SELECT_LANG":"Seleziona Lingua"
+        },
+        "SETTINGS":{
+            "PROFILE_TAB":"Profilo",
+            "CHANGE_PASSWORD_TAB":"Cambia Password",
+            "ABOUT_TAB":"Info",
+
+            "USERNAME_FORM":"Nome Utente",
+            "NAME_FORM":"Nome",
+            "SURNAME_FORM":"Cognome",
+            "EMAIL_FORM":"Email",
+            "SUBMIT_FORM":"Aggiorna Profilo"
+        }
+    }
 }

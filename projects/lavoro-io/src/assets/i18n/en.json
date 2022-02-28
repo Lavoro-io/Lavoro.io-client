@@ -1,3 +1,18 @@
 {
-    "SELECT_LANG":"Select Language"
+    "PAGES":{
+        "PAGES":{
+            "SELECT_LANG":"Select Language"
+        },
+        "SETTINGS":{
+            "PROFILE_TAB":"Profile",
+            "CHANGE_PASSWORD_TAB":"Change Password",
+            "ABOUT_TAB":"About",
+
+            "USERNAME_FORM":"Username",
+            "NAME_FORM":"Name",
+            "SURNAME_FORM":"Surname",
+            "EMAIL_FORM":"Email",
+            "SUBMIT_FORM":"Update Profile"
+        }
+    }
 }

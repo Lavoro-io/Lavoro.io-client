@@ -1,1 +1,47 @@
-<p>settings works!</p>
+<div class="p-3">
+    <nav>
+        <div class="nav nav-pills" id="nav-tab" role="tablist">
+          <li class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">{{'PAGES.SETTINGS.PROFILE_TAB' | translate}}</li>
+          <li class="nav-link" id="nav-password-tab" data-bs-toggle="tab" data-bs-target="#nav-password" type="button" role="tab" aria-controls="nav-password" aria-selected="false">{{'PAGES.SETTINGS.CHANGE_PASSWORD_TAB' | translate}}</li>
+          <li class="nav-link" id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about" type="button" role="tab" aria-controls="nav-about" aria-selected="false">{{'PAGES.SETTINGS.ABOUT_TAB' | translate}}</li>
+        </div>
+      </nav>
+    <div class="tab-content pt-3" id="nav-tabContent">
+
+        <!-- Profile -->
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <form [formGroup]="profileForm">
+                <div class="col-md-4 ">
+                    <label for="usernameInput" class="form-label">{{'PAGES.SETTINGS.USERNAME_FORM' | translate}}</label>
+                    <input type="text" class="form-control" id="usernameInput" formControlName="username"/>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <label for="nameInput" class="form-label">{{'PAGES.SETTINGS.NAME_FORM' | translate}}</label>
+                    <input type="text" class="form-control" id="nameInput" formControlName="name"/>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <label for="surnameInput" class="form-label">{{'PAGES.SETTINGS.SURNAME_FORM' | translate}}</label>
+                    <input type="text" class="form-control" id="surnameInput" formControlName="surname"/>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <label for="emailInput" class="form-label">{{'PAGES.SETTINGS.EMAIL_FORM' | translate}}</label>
+                    <input type="email" class="form-control" id="emailInput" formControlName="email" readonly/>
+                </div>
+
+                <div class="col-md-4 mt-3 d-grid">
+                    <button type="submit" class="btn btn-outline-primary" [disabled]="!profileForm.valid || !profileForm.dirty">{{'PAGES.SETTINGS.SUBMIT_FORM' | translate}}</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- About -->
+        <div class="tab-pane fade" id="nav-password" role="tabpanel" aria-labelledby="nav-password-tab">
+
+        </div>
+
+        <!-- About -->
+        <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+
+        </div>
+    </div>  
+</div>
