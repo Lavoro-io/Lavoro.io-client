@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password).then((uuid: any)=>{
-      this.userService.getUser(uuid).then((user)=>{
+      this.userService.GetUser(uuid).then((user)=>{
         this.systemService.changeUser(user);
         if(user !== null){
           this.isValid = true;

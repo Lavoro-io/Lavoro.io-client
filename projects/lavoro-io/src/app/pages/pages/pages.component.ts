@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../services/auth.service';
 import { SystemService } from '../../services/system.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'io-pages',
@@ -21,7 +22,8 @@ export class PagesComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService,
               public translate: TranslateService,
-              private systemService: SystemService) {
+              private systemService: SystemService,
+              private userService: UserService) {
     this.translate.addLangs(this.translations.map(lang => lang.code));
     this.translate.setDefaultLang(this.translations[0].code);
   }

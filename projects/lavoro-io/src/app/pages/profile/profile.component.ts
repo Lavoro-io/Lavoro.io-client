@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
       if(this.uuid === undefined) this.uuid = this.user.userId;
 
-      this.userService.getUser(this.uuid).then((user:any)=>{
+      this.userService.GetUser(this.uuid).then((user:any)=>{
         this.user = user;
 
         if(this.uuid === this.user.userId) this.itsMe = true;

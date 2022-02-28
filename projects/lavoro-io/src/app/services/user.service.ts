@@ -26,9 +26,30 @@ export class UserService {
     });
   }
 
-  public getUser(uuid: any){
+  public GetUser(uuid: any){
     return new Promise((resolve)=>{
       return this.httpClient.get(settings.UserServiceEndpoint + userController + "?uuid=" + uuid, {headers: this.httpHeader})
+        .subscribe((res)=> {
+          resolve(res);
+        }, (err)=>{
+          console.log(err);
+          resolve(undefined);
+        })
+    });
+  }
+
+  public UpdateUser(uuid: any, username: string, name: string, surname: string){
+    return new Promise((resolve)=>{
+
+      const body = {
+        userId: uuid,
+        username: username,
+        name: name,
+        surname: surname,
+        email: ''
+      }
+
+      return this.httpClient.put(settings.UserServiceEndpoint + userController, body, {headers: this.httpHeader})
         .subscribe((res)=> {
           resolve(res);
         }, (err)=>{

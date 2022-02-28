@@ -10,7 +10,7 @@
 
         <!-- Profile -->
         <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <form [formGroup]="profileForm">
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
                 <div class="col-md-4 ">
                     <label for="usernameInput" class="form-label">{{'PAGES.SETTINGS.USERNAME_FORM' | translate}}</label>
                     <input type="text" class="form-control" id="usernameInput" formControlName="username"/>
