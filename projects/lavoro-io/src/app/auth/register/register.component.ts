@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validator, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppManagerService } from 'projects/lavoro-io/src/app/services/app-manager.service';
+import { UserService } from 'projects/lavoro-io/src/app/services/user.service';
 
 @Component({
   selector: 'io-RegisterComponent',
@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm = new FormGroup({});
 
-  constructor(private appManager: AppManagerService,
+  constructor(private appManager: UserService,
               private router: Router,
               private fb: FormBuilder) { }
 

@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { OfficeDesignModule } from 'office-design';
-import { AppManagerService } from 'projects/lavoro-io/src/app/services/app-manager.service';
+import { UserService } from 'projects/lavoro-io/src/app/services/user.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +21,7 @@ import { HttpClient, HttpClientModule, HttpEvent, HttpHandler, HttpInterceptor, 
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     HomeComponent,
     RegisterComponent,
     ProfileComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SettingsComponent
   ],
   imports: [
     HttpClientModule,
@@ -57,7 +59,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
   ],
   providers: [
     JwtHelperService,
-    AppManagerService, 
+    UserService, 
     AuthService,
     AuthGuardService,
   ],

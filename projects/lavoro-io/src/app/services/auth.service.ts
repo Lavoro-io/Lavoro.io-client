@@ -1,32 +1,54 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import users from './../../assets/mock/users.json';
 import settings from './../../assets/settings.json';
+import { SystemService } from './system.service';
 
 const authController = 'auth/';
-const userController = 'user';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class AuthService {
+export class AuthService implements OnDestroy{
 
-  token: string | undefined;
   httpHeader = new HttpHeaders({
     'Content-Type': 'application/json',
   });
+  user: any;
+  
+  tokenSub: any;
+  userSub: any;
 
   constructor(private jwtHelper: JwtHelperService,
               private router: Router,
-              private httpClient: HttpClient) { }
+              private httpClient: HttpClient,
+              private systemService: SystemService) {
+    this.events();
+  }
+
+  private events(){
+    this.tokenSub = this.systemService.currentToken.subscribe((token)=>{
+      this.httpHeader = this.httpHeader.delete('Authorization');
+
+      if(token !== '')
+        this.httpHeader = this.httpHeader.append('Authorization', 'Bearer ' + token);
+    });
+
+    this.userSub = this.systemService.currentUser.subscribe((user)=>{
+      this.user = user;
+    });
+  }
+
+  ngOnDestroy() {
+    this.tokenSub.unsubscribe();
+    this.userSub.unsubscribe();
+  }
 
   public isAuthenticated(): boolean{
-    this.token = localStorage.getItem('token')?.toString();
-    this.httpHeader = this.httpHeader.append('Authorization', 'Bearer ' + this.token);
-    const expired = this.jwtHelper.isTokenExpired(this.token);
+    let token = localStorage.getItem('token')?.toString();
+    const expired = this.jwtHelper.isTokenExpired(token);
     return !expired;
   }
 
@@ -36,31 +58,13 @@ export class AuthService {
     this.router.navigate(['auth/login']);
   }
 
-  public getLoggedUser(){
-    if(this.isAuthenticated()){
-      const user = localStorage.getItem('user');
-      const data = JSON.parse(user ?? '{}');
-      return data;
-    }
-  }
-
   public login(email: string, password: string){
     return new Promise((resolve)=>{
       this.getToken(email, password).then((res:any) => {
 
-        const auth = JSON.parse(res);
-
-        this.token = auth.token;
-  
-        localStorage.setItem('token', this.token ?? '');
-        this.httpHeader = this.httpHeader.append('Authorization', 'Bearer ' + this.token);
-  
-        this.getUser(auth.uuid).then((userRes)=>{
-          const user = userRes;
-          localStorage.setItem('user', JSON.stringify(user));
-          //console.log(user);
-          resolve(user);
-        });
+        const auth = res;
+        this.systemService.changeToken(auth.token);
+        resolve(auth.uuid);
       });  
     })
   }
@@ -73,23 +77,11 @@ export class AuthService {
         password: password
       }
 
-      return this.httpClient.post(settings.IdentityProviderEndpoint + authController + 'token', JSON.stringify(body), {headers: this.httpHeader, responseType: "text"})
+      return this.httpClient.post(settings.IdentityProviderEndpoint + authController + 'token', JSON.stringify(body), {headers: this.httpHeader})
         .subscribe((res)=> {
           resolve(res);
         }, (err)=>{
           console.log(err);
-        })
-    });
-  }
-
-  public getUser(uuid: any){
-    return new Promise((resolve)=>{
-
-      return this.httpClient.get(settings.UserServiceEndpoint + userController + "?uuid=" + uuid, {headers: this.httpHeader})
-        .subscribe((res)=> {
-          resolve(res);
-        }, (err)=>{
-          resolve(undefined);
         })
     });
   }

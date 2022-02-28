@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { SystemService } from '../../services/system.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'io-login',
@@ -18,20 +20,25 @@ export class LoginComponent implements OnInit {
   })
 
   constructor(private authService: AuthService,
+              private userService: UserService,
+              private systemService: SystemService,
               private router: Router) { }
 
   ngOnInit() {
   }
 
   onSubmit(){
-    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).then((user: any)=>{
-      if(user !== null){
-        this.isValid = true;
-        setTimeout(() => {
-          this.router.navigate(['pages/profile', user.userId]);
-        }, 1500);
-      } else 
-        this.isValid = false;  
+    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).then((uuid: any)=>{
+      this.userService.getUser(uuid).then((user)=>{
+        this.systemService.changeUser(user);
+        if(user !== null){
+          this.isValid = true;
+          setTimeout(() => {
+            this.router.navigate(['pages/profile', uuid]);
+          }, 1500);
+        } else 
+          this.isValid = false;  
+      });
     });
   }
 }

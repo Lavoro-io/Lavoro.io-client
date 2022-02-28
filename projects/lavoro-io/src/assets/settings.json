@@ -1,4 +1,4 @@
 {
-    "IdentityProviderEndpoint":"https://lvrio-identityprovider.azurewebsites.net/",
-    "UserServiceEndpoint":"https://10.10.4.21:7206/"
+    "IdentityProviderEndpoint":"https://lvrio-service.azurewebsites.net/",
+    "UserServiceEndpoint":"https://lvrio-service.azurewebsites.net/"
 }
