@@ -22,6 +22,8 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { Observable } from 'rxjs';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { ContactsComponent } from './pages/contacts/contacts.component';
+import { MessagesComponent } from './pages/messages/messages.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { SettingsComponent } from './pages/settings/settings.component';
     RegisterComponent,
     ProfileComponent,
     NotFoundComponent,
-    SettingsComponent
+    SettingsComponent,
+    ContactsComponent,
+    MessagesComponent
   ],
   imports: [
     HttpClientModule,

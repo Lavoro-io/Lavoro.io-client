@@ -38,15 +38,13 @@ export class UserService {
     });
   }
 
-  public UpdateUser(uuid: any, username: string, name: string, surname: string){
+  public UpdateUser(username: string, name: string, surname: string){
     return new Promise((resolve)=>{
 
       const body = {
-        userId: uuid,
         username: username,
         name: name,
-        surname: surname,
-        email: ''
+        surname: surname
       }
 
       return this.httpClient.put(settings.UserServiceEndpoint + userController, body, {headers: this.httpHeader})

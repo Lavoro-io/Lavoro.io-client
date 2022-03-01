@@ -28,7 +28,7 @@
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
             <li><a class="dropdown-item" [routerLink]="['/pages/profile', user?.userId]" ><i class="bi bi-person-fill"></i> Profile</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/pages/settings']"><i class="bi bi-gear-fill"></i> Settings</a></li>
+            <li><a class="dropdown-item" routerLink="/pages/settings"><i class="bi bi-gear-fill"></i> Settings</a></li>
             <li><a class="dropdown-item" (click)="logout()"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
           </ul>
         </div>
@@ -39,10 +39,10 @@
 <div class="navbar justify-content-end" *ngIf="isLogged">
   <ul class="nav">
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/pages/profile', user?.sub]"><i class="bi bi-person-lines-fill"></i> Contatti</a>
+      <a class="nav-link" routerLink="/pages/contacts"><i class="bi bi-person-lines-fill"></i> Contatti</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/pages/profile', user?.sub]"><i class="bi bi-chat-left-dots"></i> Messaggi</a>
+      <a class="nav-link" routerLink="/pages/messages"><i class="bi bi-chat-left-dots"></i> Messaggi</a>
     </li>
   </ul>
 </div>

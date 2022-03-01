@@ -3,7 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { ContactsComponent } from './pages/contacts/contacts.component';
 import { HomeComponent } from './pages/home/home.component';
+import { MessagesComponent as MessagesComponent } from './pages/messages/messages.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { PagesComponent } from './pages/pages/pages.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -42,6 +44,16 @@ const routes: Routes = [
       {
         path: 'settings',
         component: SettingsComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'contacts',
+        component: ContactsComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'messages',
+        component: MessagesComponent,
         canActivate: [AuthGuard]
       },
       // {

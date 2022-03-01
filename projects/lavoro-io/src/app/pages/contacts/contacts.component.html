@@ -1,0 +1,26 @@
+<div class="d-flex flex-wrap justify-content-center">
+    <div class="card m-2" *ngFor="let i of repeat">
+        <div class="card-body">
+            <div class="d-flex flex-nowrap">
+                <div style="border: 2px solid black; border-radius: 100px;">
+                    <i class="bi bi-person-fill p-2" style="font-size: 30px;"></i>
+                </div>
+                <h5 class="card-title mx-3">Nome Cognome</h5>    
+            </div>
+            <br/>
+            <div class="d-flex flex-nowrap justify-content-center">
+                <div class="btn-group" role="group">
+                    <!-- <button type="button" class="btn btn-outline-primary">
+                        <i class="bi bi-pin-angle"></i> Pin
+                    </button> -->
+                    <button type="button" class="btn btn-outline-primary">
+                        <i class="bi bi-trash3"></i> Remove
+                    </button>
+                    <button type="button" class="btn btn-outline-primary">
+                        <i class="bi bi-chat-left-dots"></i> Chat
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
