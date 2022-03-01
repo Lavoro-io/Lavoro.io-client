@@ -2,7 +2,6 @@ import { Injectable, Injector, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
-import { OfficeDesignModule } from 'office-design';
 import { UserService } from 'projects/lavoro-io/src/app/services/user.service';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -52,7 +51,6 @@ import { MessagesComponent } from './pages/messages/messages.component';
     }),
     BrowserModule,
     AppRoutingModule,
-    OfficeDesignModule,
     FormsModule,
     ReactiveFormsModule,
     JwtModule.forRoot({

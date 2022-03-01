@@ -3,37 +3,6 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "office-design": {
-      "projectType": "library",
-      "root": "projects/office-design",
-      "sourceRoot": "projects/office-design/src",
-      "prefix": "od",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/office-design/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/office-design/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/office-design/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/office-design/src/test.ts",
-            "tsConfig": "projects/office-design/tsconfig.spec.json",
-            "karmaConfig": "projects/office-design/karma.conf.js"
-          }
-        }
-      }
-    },
     "lavoro-io": {
       "projectType": "application",
       "schematics": {
