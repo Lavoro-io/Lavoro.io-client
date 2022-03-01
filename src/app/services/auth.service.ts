@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import settings from './../../assets/settings.json';
+import settings from '../../assets/settings.json';
 import { SystemService } from './system.service';
 
 const authController = 'auth/';

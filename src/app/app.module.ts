@@ -2,7 +2,7 @@ import { Injectable, Injector, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
-import { UserService } from 'projects/lavoro-io/src/app/services/user.service';
+import { UserService } from 'src/app/services/user.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
