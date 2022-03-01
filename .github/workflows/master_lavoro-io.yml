@@ -59,4 +59,4 @@ jobs:
           app-name: 'lavoro-io'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AC379F9A3B4C4E89B85A0D57A5EFA641 }}
-          package: '/dist'
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/dist'
