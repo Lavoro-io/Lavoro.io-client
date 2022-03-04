@@ -33,7 +33,7 @@ export class UserService {
           resolve(res);
         }, (err)=>{
           console.log(err);
-          resolve(undefined);
+          resolve(null);
         })
     });
   }
@@ -52,7 +52,7 @@ export class UserService {
           resolve(res);
         }, (err)=>{
           console.log(err);
-          resolve(undefined);
+          resolve(null);
         })
     });
   }

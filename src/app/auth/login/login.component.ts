@@ -12,11 +12,12 @@ import { UserService } from '../../services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  isValid: boolean | undefined;
+  isValid?: boolean | null;
+  isLoading: boolean = false;
 
   loginForm = new FormGroup({
     email: new FormControl('', Validators.required),
-    password: new FormControl('12345678', [Validators.required,Validators.minLength(8), Validators.maxLength(32)])
+    password: new FormControl('', [Validators.required,Validators.minLength(8), Validators.maxLength(32)])
   })
 
   constructor(private authService: AuthService,
@@ -28,7 +29,16 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
+    this.isLoading = true;
+    this.isValid = null;
+    
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password).then((uuid: any)=>{
+      if(uuid === null){
+        this.isLoading = false;
+        this.isValid = false;    
+        return;
+      }
+
       this.userService.GetUser(uuid).then((user)=>{
         this.systemService.changeUser(user);
         if(user !== null){
@@ -39,6 +49,10 @@ export class LoginComponent implements OnInit {
         } else 
           this.isValid = false;  
       });
+    }).catch(()=>{
+      this.isLoading = false;
+      this.isValid = false;  
+      return;
     });
   }
 }

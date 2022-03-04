@@ -1,4 +1,7 @@
 {
     "IdentityProviderEndpoint":"https://lvrio-service.azurewebsites.net/",
-    "UserServiceEndpoint":"https://lvrio-service.azurewebsites.net/"
+    "UserServiceEndpoint":"https://lvrio-service.azurewebsites.net/",
+    "Hubs":[
+        "chat"
+    ]
 }

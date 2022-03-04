@@ -7,10 +7,10 @@
       <button type="button" class="btn-close" (click)="isValid = undefined"></button>
     </div> -->
 
-    <div class="alert alert-success alert-dismissible fade show" role="alert" [hidden]="!isValid || isValid === undefined">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="isValid === true">
       Register successfully! <br/>
-      An email to <b>{{registerForm.value.email}}</b> has been sent. <br/>
-      You will be redirect in 5 seconds.
+      <!-- An email to <b>{{registerForm.value.email}}</b> has been sent. <br/> -->
+      You will be redirect in 3 seconds.
     </div>
 
     <div class="col-md-6">

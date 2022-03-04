@@ -1,11 +1,11 @@
 <div class="position-relative top-50 translate-middle-y">
 
-  <div class="alert alert-danger alert-dismissible fade show" role="alert" [hidden]="isValid || isValid === undefined">
+  <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isValid === false">
     Wrong username or password
     <button type="button" class="btn-close" (click)="isValid = undefined"></button>
   </div>
 
-  <div class="alert alert-success alert-dismissible fade show" role="alert" [hidden]="!isValid || isValid === undefined">
+  <div class="alert alert-success alert-dismissible fade show" role="alert"  *ngIf="isValid === true">
     Login successfully! <br/>
   </div>
 
@@ -24,7 +24,7 @@
     </div>
   
     <div class="d-grid gap-1 d-md-flex justify-content-md-end">
-      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid || isLoading">Login</button>
     </div>
   </form>
 </div>

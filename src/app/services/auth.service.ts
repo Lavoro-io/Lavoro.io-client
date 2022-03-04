@@ -61,10 +61,13 @@ export class AuthService implements OnDestroy{
   public login(email: string, password: string){
     return new Promise((resolve)=>{
       this.getToken(email, password).then((res:any) => {
+        if(res === null) resolve(null);
 
         const auth = res;
         this.systemService.changeToken(auth.token);
         resolve(auth.uuid);
+      }, (err)=>{
+        resolve(null);
       });  
     })
   }
@@ -82,7 +85,25 @@ export class AuthService implements OnDestroy{
           resolve(res);
         }, (err)=>{
           console.log(err);
+          resolve(null);
         })
     });
   }
-}
+
+  public register(name: string, surname: string, email: string, password: string){
+    return new Promise((resolve)=>{
+      var body = {
+        name: name,
+        surname: surname,
+        email: email,
+        password: password
+      }
+
+      return this.httpClient.post(settings.IdentityProviderEndpoint + authController + 'register', JSON.stringify(body), {headers: this.httpHeader})
+        .subscribe((res: any)=>{
+          resolve(res);
+        }, (err)=>{
+          resolve(false);
+      });
+    })
+  }}
