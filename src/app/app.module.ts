@@ -23,6 +23,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ContactsComponent } from './pages/contacts/contacts.component';
 import { MessagesComponent } from './pages/messages/messages.component';
+import { SignalRService } from './services/signal-r.service';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { MessagesComponent } from './pages/messages/messages.component';
     UserService, 
     AuthService,
     AuthGuardService,
+    SignalRService
   ],
   bootstrap: [AppComponent]
 })

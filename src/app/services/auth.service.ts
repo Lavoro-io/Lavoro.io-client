@@ -3,6 +3,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import settings from '../../assets/settings.json';
+import { SignalRService } from './signal-r.service';
 import { SystemService } from './system.service';
 
 const authController = 'auth/';
@@ -24,7 +25,8 @@ export class AuthService implements OnDestroy{
   constructor(private jwtHelper: JwtHelperService,
               private router: Router,
               private httpClient: HttpClient,
-              private systemService: SystemService) {
+              private systemService: SystemService,
+              private signalRservice: SignalRService) {
     this.events();
   }
 
@@ -53,6 +55,7 @@ export class AuthService implements OnDestroy{
   }
 
   public logout(){
+    this.signalRservice.closeConnection();
     localStorage.clear();
     this.httpHeader.delete('')
     this.router.navigate(['auth/login']);
@@ -65,6 +68,7 @@ export class AuthService implements OnDestroy{
 
         const auth = res;
         this.systemService.changeToken(auth.token);
+        
         resolve(auth.uuid);
       }, (err)=>{
         resolve(null);
