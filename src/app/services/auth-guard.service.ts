@@ -19,7 +19,6 @@ export class AuthGuardService implements CanActivate{
       return false;
       
     } else {
-      this.signalRservice.startConnection();
       return true;
     }
   }

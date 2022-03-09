@@ -14,10 +14,6 @@ export class SystemService {
 
   constructor() { }
 
-  public getToken(){
-   return this.tokenValue.value;
-  }
-
   public changeToken(value: any){
     localStorage.setItem('token', value ?? '');
     this.tokenValue.next(value);

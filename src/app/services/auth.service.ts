@@ -84,7 +84,7 @@ export class AuthService implements OnDestroy{
         password: password
       }
 
-      return this.httpClient.post(settings.IdentityProviderEndpoint + authController + 'token', JSON.stringify(body), {headers: this.httpHeader})
+      return this.httpClient.post(settings.ServiceEndpoint + authController + 'token', JSON.stringify(body), {headers: this.httpHeader})
         .subscribe((res)=> {
           resolve(res);
         }, (err)=>{
@@ -103,7 +103,7 @@ export class AuthService implements OnDestroy{
         password: password
       }
 
-      return this.httpClient.post(settings.IdentityProviderEndpoint + authController + 'register', JSON.stringify(body), {headers: this.httpHeader})
+      return this.httpClient.post(settings.ServiceEndpoint + authController + 'register', JSON.stringify(body), {headers: this.httpHeader})
         .subscribe((res: any)=>{
           resolve(res);
         }, (err)=>{

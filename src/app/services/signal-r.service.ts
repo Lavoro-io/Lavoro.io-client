@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
 import settings from '../../assets/settings.json';
 import { SystemService } from './system.service';
@@ -6,27 +6,48 @@ import { SystemService } from './system.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SignalRService {
-  private opts =  { accessTokenFactory: () => this.systemService.currentToken};
-  private hubConnection: signalR.HubConnection = new signalR.HubConnectionBuilder()
-                                                  .withUrl(settings.UserServiceEndpoint + settings.Hubs[0])
-                                                  .build();
+export class SignalRService implements OnDestroy {
 
-  constructor(private systemService: SystemService) { }
+  userSub: any;
+  user: any;
+
+  private hubConnection: any;
+
+  constructor(private systemService: SystemService) { 
+    this.userSub = this.systemService.currentUser.subscribe((user)=>{
+      this.user = user;
+
+      this.closeConnection();
+
+      this.hubConnection = new signalR.HubConnectionBuilder()
+                            .withUrl(settings.ServiceEndpoint + settings.Hubs[0] + '?uuid=' + this.user.userId)
+                            .build();
+      
+      this.startConnection();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.userSub.unsubscribe();
+  }
 
   public startConnection = () => {
+    if(this.hubConnection === undefined) return;
+
     this.hubConnection.serverTimeoutInMilliseconds = 24000;
     this.hubConnection
       .start()
       .then(() => console.log('Connection started'))
-      .catch(err => console.log('Error while starting connection: ' + err))
+      .catch((err: any) => console.log('Error while starting connection: ' + err))
   }
 
   public closeConnection = () => {
+    if(this.hubConnection === undefined) return;
+
     this.hubConnection
       .stop()
       .then(() => console.info('Connection stopped'))
-      .catch(err => console.error('Error while stopping connection: ' + err))
+      .catch((err: any) => console.error('Error while stopping connection: ' + err))
   }
 
   //#region Listeners
@@ -40,8 +61,8 @@ export class SignalRService {
   
   //#region Invokes
   public sendMessage(connectionId: string, message: string){
-    this.hubConnection.invoke('addChatMessage', connectionId, message)
-      .catch(err => console.error(err));
+    this.hubConnection.invoke('SendChatMessage', connectionId, message)
+      .catch((err:any) => console.error(err));
   }
   //#endregion
 }
