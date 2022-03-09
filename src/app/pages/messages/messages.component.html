@@ -7,7 +7,10 @@
         <div class="messages-box">
           <div class="list-group rounded-0 border-end-0">
 
-            <button class="list-group-item list-group-item-action border-end-0 border-top-0" ngClass="selectedUser === user ? 'active'" (click)="SelectedUser(user)" *ngFor="let user of users">
+            <button class="list-group-item list-group-item-action border-end-0 border-top-0" 
+                    ngClass="selectedUser === user ? 'active'" 
+                    [routerLink]="['/pages/messages', user?.userId]"
+                    *ngFor="let user of users">
                 <div class="media-body ml-4">
                     <div class="d-flex align-items-center justify-content-between mx-2">
                         <h6 class="mb-0">{{user.name}} {{user.surname}}</h6><small class="small font-weight-bold">25 Dec</small>
@@ -32,10 +35,12 @@
 
             <!-- Sender Message-->
             <div class="col-sm-6 col-10" *ngFor="let message of messages">
-                <div class="bg-secondary rounded py-2 px-3 mb-2">
-                    <p class="text-small mb-0 text-white">{{message}}</p>
+                <div *ngIf="message !== ''">
+                    <div class="bg-secondary rounded py-2 px-3 mb-2 text-small text-white text-break">
+                        {{message}}
+                    </div>
+                    <p class="small text-muted">{{getDateTimeNow() | date:'HH:mm | d MMM yyyy'}}</p>
                 </div>
-                <p class="small text-muted">12:00 PM | Aug 13</p>
             </div>
 
             <!-- Reciever Message-->

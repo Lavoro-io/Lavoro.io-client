@@ -56,6 +56,11 @@ const routes: Routes = [
         component: MessagesComponent,
         canActivate: [AuthGuard]
       },
+      {
+        path: 'messages/:uuid',
+        component: MessagesComponent,
+        canActivate: [AuthGuard]
+      },
       // {
       //   path: 'test',
       //   component: TestComponent,
