@@ -1,1 +1,64 @@
-<button class="btn btn-primary" (click)="SendMessage()">Send Message</button>
+
+<div class="row col-12 overflow-hidden border-top g-0">
+    <!-- Users box-->
+    <div class="col-sm-4 px-0 border border-top-0">
+      <div class="bg-white">
+
+        <div class="messages-box">
+          <div class="list-group rounded-0 border-end-0">
+
+            <button class="list-group-item list-group-item-action border-end-0 border-top-0" ngClass="selectedUser === user ? 'active'" (click)="SelectedUser(user)" *ngFor="let user of users">
+                <div class="media-body ml-4">
+                    <div class="d-flex align-items-center justify-content-between mx-2">
+                        <h6 class="mb-0">{{user.name}} {{user.surname}}</h6><small class="small font-weight-bold">25 Dec</small>
+                    </div>
+                </div>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Chat Box-->
+    <div class="col-sm-8 px-0">
+
+        <div class="text-center" style="height: 407px" *ngIf="selectedUser === undefined">
+           Select a contact to chat with
+        </div>
+
+        <div class="px-4 py-3 bg-white" style="height: 408px; overflow: auto;" *ngIf="selectedUser !== undefined">
+            <h5>{{selectedUser.name}} {{selectedUser.surname}}</h5>
+
+            <!-- Sender Message-->
+            <div class="col-sm-6 col-10" *ngFor="let message of messages">
+                <div class="bg-secondary rounded py-2 px-3 mb-2">
+                    <p class="text-small mb-0 text-white">{{message}}</p>
+                </div>
+                <p class="small text-muted">12:00 PM | Aug 13</p>
+            </div>
+
+            <!-- Reciever Message-->
+            <!-- <div class="offset-sm-6 col-sm-6 offset-2 col-10 text-end">
+            <div class="media-body">
+                <div class="bg-primary rounded py-2 px-3 mb-2">
+                <p class="text-small mb-0 text-white">Test which is a new approach to have all solutions</p>
+                </div>
+                <p class="small text-muted">12:00 PM | Aug 13</p>
+            </div>
+            </div> -->
+
+        </div>
+
+        <!-- Typing area -->
+        <form [formGroup]="messageForm" (ngSubmit)="SendMessage()">
+            <div class="input-group border-top">
+            <input type="text" placeholder="Type a message" class="form-control rounded-0 border-0 shadow-none px-4" formControlName="message">
+            <div class="p-1 d-flex">
+                <button type="submit" class="btn btn-outline-primary m-1" [disabled]="!messageForm.valid || selectedUser === undefined"> <i class="bi bi-send"></i></button>
+            </div>
+            </div>
+        </form>
+
+    </div>
+</div>

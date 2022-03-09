@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
+import { BehaviorSubject } from 'rxjs';
 import settings from '../../assets/settings.json';
 import { SystemService } from './system.service';
 
@@ -10,6 +11,8 @@ export class SignalRService implements OnDestroy {
 
   userSub: any;
   user: any;
+
+  newMessage = new BehaviorSubject('');
 
   private hubConnection: any;
 
@@ -53,15 +56,15 @@ export class SignalRService implements OnDestroy {
   //#region Listeners
   public addChatMessageListener = () => {
     this.hubConnection.on('addChatMessage', (message: string) => {
-      console.log(message);
+      this.newMessage.next(message);
     });
   }
 
   //#endregion
   
   //#region Invokes
-  public sendMessage(connectionId: string, message: string){
-    this.hubConnection.invoke('SendChatMessage', connectionId, message)
+  public sendMessage(userId: string, message: string){
+    this.hubConnection.invoke('SendChatMessage', userId, message)
       .catch((err:any) => console.error(err));
   }
   //#endregion

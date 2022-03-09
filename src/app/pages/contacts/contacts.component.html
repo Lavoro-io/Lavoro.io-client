@@ -1,11 +1,14 @@
 <div class="d-flex flex-wrap justify-content-center">
-    <div class="card m-2" *ngFor="let i of repeat">
+    <div class="card m-2" *ngFor="let user of users">
         <div class="card-body">
             <div class="d-flex flex-nowrap">
                 <div style="border: 2px solid black; border-radius: 100px;">
-                    <i class="bi bi-person-fill p-2" style="font-size: 30px;"></i>
+                    <i class="bi bi-person-fill p-2" style="font-size: 35px;"></i>
                 </div>
-                <h5 class="card-title mx-3">Nome Cognome</h5>    
+                <div class="d-flex flex-column mx-3">
+                    <h5 class="card-title">{{user.name}} {{user.surname}}</h5>   
+                    <div class="card-text"><small class="text-muted">@{{user.username}}</small></div>    
+                </div>
             </div>
             <br/>
             <div class="d-flex flex-nowrap justify-content-center">

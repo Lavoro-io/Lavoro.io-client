@@ -28,7 +28,19 @@ export class UserService {
 
   public GetUser(uuid: any){
     return new Promise((resolve)=>{
-      return this.httpClient.get(settings.ServiceEndpoint + userController + "?uuid=" + uuid, {headers: this.httpHeader})
+      return this.httpClient.get(settings.ServiceEndpoint + userController + "/GetUser/?uuid=" + uuid, {headers: this.httpHeader})
+        .subscribe((res)=> {
+          resolve(res);
+        }, (err)=>{
+          console.log(err);
+          resolve(null);
+        })
+    });
+  }
+
+  public GetUsers(){
+    return new Promise((resolve)=>{
+      return this.httpClient.get(settings.ServiceEndpoint + userController + "/GetUsers", {headers: this.httpHeader})
         .subscribe((res)=> {
           resolve(res);
         }, (err)=>{
@@ -47,7 +59,7 @@ export class UserService {
         surname: surname
       }
 
-      return this.httpClient.put(settings.ServiceEndpoint + userController, body, {headers: this.httpHeader})
+      return this.httpClient.put(settings.ServiceEndpoint + userController + '/UpdateUser', body, {headers: this.httpHeader})
         .subscribe((res)=> {
           resolve(res);
         }, (err)=>{
