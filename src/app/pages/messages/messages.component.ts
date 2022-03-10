@@ -46,7 +46,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   events(){
     this.signalR.addChatMessageListener();
     this.signalR.newMessage.subscribe((message)=>{
-      console.log(message, this.messages);
+      //console.log(message, this.messages);
       this.messages.push(message);
     });
 

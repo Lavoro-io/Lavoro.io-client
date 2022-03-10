@@ -55,7 +55,7 @@ export class SignalRService implements OnDestroy {
 
   //#region Listeners
   public addChatMessageListener = () => {
-    this.hubConnection.on('addChatMessage', (message: string) => {
+    this.hubConnection.on('addChatMessage', (message: any) => {
       this.newMessage.next(message);
     });
   }
