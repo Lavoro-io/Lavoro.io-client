@@ -1,5 +1,7 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { SignalRService } from 'src/app/services/signal-r.service';
 import { SystemService } from 'src/app/services/system.service';
 import { UserService } from 'src/app/services/user.service';
@@ -12,9 +14,12 @@ import { UserService } from 'src/app/services/user.service';
 export class MessagesComponent implements OnInit, OnDestroy {
 
   userSub: any;
+  routerSub: any;
   user: any;
+  uuid: any;
+  datePipe: DatePipe = new DatePipe('');
 
-  users: any;
+  users: any[] = [];
   selectedUser: any;
 
   messages: any[] = [];
@@ -25,26 +30,37 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   constructor(private signalR: SignalRService,
               private userService: UserService,
-              private systemService: SystemService) {
+              private systemService: SystemService,
+              private activeRouter: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.events();
-    this.GetUsers();
   }
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
+    this.routerSub.unsubscribe();
   }
 
   events(){
     this.signalR.addChatMessageListener();
     this.signalR.newMessage.subscribe((message)=>{
+      //console.log(message, this.messages);
       this.messages.push(message);
     });
 
     this.userSub = this.systemService.currentUser.subscribe((user)=>{
       this.user = user;
+      this.GetUsers();
+    });
+
+    // Get userId from url if present
+    this.routerSub = this.activeRouter.params.subscribe((params:any) =>{
+      this.uuid = params['uuid'];
+      
+      if(this.uuid !== undefined)
+        this.SelectedUser(this.uuid);
     });
   }
 
@@ -57,11 +73,22 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   GetUsers(){
     this.userService.GetUsers().then((users)=>{
-      this.users = users;
+      this.users = (users as any[]).filter(x => x.userId !== this.user.userId);   
+
+      // For first time if uuid is not present on url
+      if(this.uuid !== undefined)
+        this.SelectedUser(this.uuid);
+
     });
   }
 
-  SelectedUser(user: any){
-    this.selectedUser = user;
+  SelectedUser(userId: any){
+    this.selectedUser = this.users.filter(x => x.userId === userId)[0];
+    //console.log(this.selectedUser);
+  }
+
+  getDateTimeNow(): string{
+    const date = new Date().toLocaleString();
+    return date as string;
   }
 }
