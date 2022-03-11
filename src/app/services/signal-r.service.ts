@@ -19,6 +19,8 @@ export class SignalRService implements OnDestroy {
   constructor(private systemService: SystemService) { 
     this.userSub = this.systemService.currentUser.subscribe((user)=>{
       this.user = user;
+      
+      if(this.user?.userId === undefined) return;
 
       this.closeConnection();
 
