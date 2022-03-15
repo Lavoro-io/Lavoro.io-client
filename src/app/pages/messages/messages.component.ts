@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ChatService, ChatType } from 'src/app/services/chat.service';
 import { SignalRService } from 'src/app/services/signal-r.service';
 import { SystemService } from 'src/app/services/system.service';
 import { UserService } from 'src/app/services/user.service';
@@ -16,11 +17,12 @@ export class MessagesComponent implements OnInit, OnDestroy {
   userSub: any;
   routerSub: any;
   user: any;
-  uuid: any;
+  contacts: any;
+  chatCode: any;
   datePipe: DatePipe = new DatePipe('');
 
-  users: any[] = [];
-  selectedUser: any;
+  chats: any[] = [];
+  selectedChat: any;
 
   messages: any[] = [];
 
@@ -28,13 +30,19 @@ export class MessagesComponent implements OnInit, OnDestroy {
     message: new FormControl('', Validators.required)
   })
 
+  contactForm = new FormGroup({
+    contact: new FormControl('', Validators.required)
+  })
+
   constructor(private signalR: SignalRService,
               private userService: UserService,
+              private chatService: ChatService,
               private systemService: SystemService,
               private activeRouter: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.GetUsers();
     this.events();
   }
 
@@ -52,43 +60,77 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     this.userSub = this.systemService.currentUser.subscribe((user)=>{
       this.user = user;
-      this.GetUsers();
     });
 
     // Get userId from url if present
     this.routerSub = this.activeRouter.params.subscribe((params:any) =>{
-      this.uuid = params['uuid'];
-      
-      if(this.uuid !== undefined)
-        this.SelectedUser(this.uuid);
+      this.chatCode = params['uuid'];
+
+      this.GetChats();
+    });
+  }
+
+  GetUsers(){
+    this.userService.GetUsers().then((users)=>{
+      //console.log(users);
+      this.contacts = (users as any[]).filter(x => x.userId !== this.user.userId);
     });
   }
 
   SendMessage(){
     const message = this.messageForm.controls['message'].value;
-    this.signalR.sendMessage(this.selectedUser.userId, message);
+    this.signalR.SendMessage(this.selectedChat.chatCode, message);
 
     this.messageForm.reset();
   }
 
-  GetUsers(){
-    this.userService.GetUsers().then((users)=>{
-      this.users = (users as any[]).filter(x => x.userId !== this.user.userId);   
+  AddChat(){
+    const selectedContactId = this.contactForm.controls['contact'].value;
+    var chatUsers = [];
+    chatUsers.push(selectedContactId);
+    chatUsers.push(this.user.userId);
+    this.contactForm.reset();
 
-      // For first time if uuid is not present on url
-      if(this.uuid !== undefined)
-        this.SelectedUser(this.uuid);
+    this.chatService.AddChat(chatUsers, ChatType.Private).then((added)=>{
+      if(added){
+        window.location.reload();
+      }
+    });
+  }
+
+  DeleteChat(chatId: any){
+    this.chatService.RemoveChat(chatId).then((removed)=>{
+      if(removed){
+        window.location.reload();
+      }
+    });
+  }
+
+  GetChats(){
+    this.chatService.GetChats(this.user.userId).then((chats)=>{
+      //console.log('GetChats',chats);
+      this.chats = (chats as any[]);
+
+      // // For first time if uuid is not present on url
+      if(this.chatCode !== undefined)
+        this.SelectedChat(this.chatCode);
 
     });
   }
 
-  SelectedUser(userId: any){
-    this.selectedUser = this.users.filter(x => x.userId === userId)[0];
-    //console.log(this.selectedUser);
+  SelectedChat(chatCode: any){
+    this.chatService.GetChatDetail(chatCode).then((chat)=>{
+      //console.log(chat);
+      this.selectedChat = chat;
+    });
   }
 
   getDateTimeNow(): string{
     const date = new Date().toLocaleString();
     return date as string;
+  }
+
+  CloseContactSelectorModal(){
+    this.contactForm.reset();
   }
 }

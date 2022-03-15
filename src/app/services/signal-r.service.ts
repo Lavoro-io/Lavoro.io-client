@@ -25,7 +25,7 @@ export class SignalRService implements OnDestroy {
       this.closeConnection();
 
       this.hubConnection = new signalR.HubConnectionBuilder()
-                            .withUrl(settings.ServiceEndpoint + settings.Hubs[0] + '?uuid=' + this.user.userId)
+                            .withUrl(settings.ServiceEndpoint + settings.Hub + '?uuid=' + this.user.userId)
                             .build();
       
       this.startConnection();
@@ -65,7 +65,7 @@ export class SignalRService implements OnDestroy {
   //#endregion
   
   //#region Invokes
-  public sendMessage(userId: string, message: string){
+  public SendMessage(userId: string, message: string){
     this.hubConnection.invoke('SendChatMessage', userId, message)
       .catch((err:any) => console.error(err));
   }
