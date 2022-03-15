@@ -1,6 +1,4 @@
 {
     "ServiceEndpoint":"https://lvrio-service.azurewebsites.net/",
-    "Hubs":[
-        "chat"
-    ]
+    "Hub":"lvrHub"
 }
