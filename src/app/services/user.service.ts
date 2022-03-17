@@ -50,13 +50,15 @@ export class UserService {
     });
   }
 
-  public UpdateUser(username: string, name: string, surname: string){
+  public UpdateUser(username: string, name: string, surname: string, profilePicture: string, backgroundImage: string){
     return new Promise((resolve)=>{
 
       const body = {
         username: username,
         name: name,
-        surname: surname
+        surname: surname,
+        profilePicture: profilePicture,
+        backgroundImage: backgroundImage
       }
 
       return this.httpClient.put(settings.ServiceEndpoint + userController + '/UpdateUser', body, {headers: this.httpHeader})

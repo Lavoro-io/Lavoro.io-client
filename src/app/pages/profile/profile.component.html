@@ -2,11 +2,12 @@
     <div class="col-md-12">
         <!-- Column -->
         <div class="card" style="border-radius: 0; border: none;"> 
-            <img class="card-img-top" src="https://www.teamworld.it/wp-content/uploads/2019/07/foto-azzurra-instagram.jpg" alt="Card image cap">
+            <img class="card-img-top" src="{{user.backgroundImage}}" alt="Card image cap">
             <div class="card-body little-profile text-center">
                 <div class="d-flex justify-content-center">
                     <div class="pro-img bg-light">
-                        <i class="bi bi-person-fill" style="font-size: 100px;"></i>
+                        <i class="bi bi-person-fill" style="font-size: 100px;" *ngIf="user?.profilePicture?.length < 1"></i>
+                        <img src="{{user.profilePicture}}" *ngIf="user?.profilePicture?.length > 1"/>
                     </div>
                 </div>
                 
