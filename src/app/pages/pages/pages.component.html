@@ -7,8 +7,8 @@
 
       <div class="d-flex">
         <div class="btn-group" role="group" [hidden]="isLogged">
-            <button type="button" class="btn btn-secondary" routerLink="/auth/register">Register</button>
-            <button type="button" class="btn btn-primary" routerLink="/auth/login">Login</button>        
+            <button type="button" class="btn btn-secondary" routerLink="/auth/register">{{'PAGES.PAGES.REGISTER' | translate}}</button>
+            <button type="button" class="btn btn-primary" routerLink="/auth/login">{{'PAGES.PAGES.LOGIN' | translate}}</button>        
         </div>
       </div>
 
@@ -27,9 +27,9 @@
             {{user?.username}}
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
-            <li><a class="dropdown-item" [routerLink]="['/pages/profile', user?.userId]" ><i class="bi bi-person-fill"></i> Profile</a></li>
-            <li><a class="dropdown-item" routerLink="/pages/settings"><i class="bi bi-gear-fill"></i> Settings</a></li>
-            <li><a class="dropdown-item" (click)="logout()"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/pages/profile', user?.userId]" ><i class="bi bi-person-fill"></i> {{'PAGES.PAGES.PROFILE' | translate}}</a></li>
+            <li><a class="dropdown-item" routerLink="/pages/settings"><i class="bi bi-gear-fill"></i> {{'PAGES.PAGES.SETTINGS' | translate}}</a></li>
+            <li><a class="dropdown-item" (click)="logout()"><i class="bi bi-box-arrow-right"></i> {{'PAGES.PAGES.LOGOUT' | translate}}</a></li>
           </ul>
         </div>
       </div>
@@ -39,10 +39,10 @@
 <div class="navbar justify-content-end" *ngIf="isLogged">
   <ul class="nav">
     <li class="nav-item">
-      <a class="nav-link" routerLink="/pages/contacts"><i class="bi bi-person-lines-fill"></i> Contatti</a>
+      <a class="nav-link" routerLink="/pages/contacts"><i class="bi bi-person-lines-fill"></i> {{'PAGES.PAGES.CONTACTS' | translate}}</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/pages/messages"><i class="bi bi-chat-left-dots"></i> Messaggi</a>
+      <a class="nav-link" routerLink="/pages/messages"><i class="bi bi-chat-left-dots"></i> {{'PAGES.PAGES.MESSAGES' | translate}}</a>
     </li>
   </ul>
 </div>
@@ -71,9 +71,11 @@
       <div class="row d-flex justify-content-start">
         <div class="col-md-4 col-12">
           <label class="form-label" for="langSelect">{{'PAGES.PAGES.SELECT_LANG' | translate}}</label>
-          <select class="form-select" #selectedLanguage (change)="switchLanguage(selectedLanguage.value)">
-            <option *ngFor="let language of translations" [value]="language.code">{{ language.title }}</option>
-          </select>
+          <form [formGroup]="languageSelector">
+            <select class="form-select" #selectedLanguage (change)="switchLanguage(selectedLanguage.value)" formControlName="language">
+              <option *ngFor="let language of translations" [value]="language.code">{{ language.title }}</option>
+            </select>  
+          </form>
         </div>
       </div>
       <!--Grid row-->
@@ -99,16 +101,16 @@
 
         <ul class="list-unstyled mb-0">
           <li>
-            <a href="#!" class="text-white">Information</a>
+            <a href="#!" class="text-white">{{'PAGES.PAGES.INFORMATION' | translate}}</a>
           </li>
           <li>
-            <a href="#!" class="text-white">Privacy and Terms</a>
+            <a href="#!" class="text-white">{{'PAGES.PAGES.GDPR' | translate}}</a>
           </li>
           <li>
-            <a href="#!" class="text-white">Support</a>
+            <a href="#!" class="text-white">{{'PAGES.PAGES.SUPPORT' | translate}}</a>
           </li>
           <li>
-            <a href="#!" class="text-white">FAQ</a>
+            <a href="#!" class="text-white">{{'PAGES.PAGES.FAQ' | translate}}</a>
           </li>
         </ul>
       </div>

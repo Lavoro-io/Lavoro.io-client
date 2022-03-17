@@ -6,6 +6,7 @@ import { ChatService, ChatType } from 'src/app/services/chat.service';
 import { SignalRService } from 'src/app/services/signal-r.service';
 import { SystemService } from 'src/app/services/system.service';
 import { UserService } from 'src/app/services/user.service';
+import $ from 'jquery';
 
 @Component({
   selector: 'io-messages',
@@ -18,8 +19,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
   routerSub: any;
   user: any;
   contacts: any;
-  chatCode: any;
-  datePipe: DatePipe = new DatePipe('');
+  chatId: any;
+  messageLength: any = '0/255';
 
   chats: any[] = [];
   selectedChat: any;
@@ -52,10 +53,13 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   events(){
-    this.signalR.addChatMessageListener();
     this.signalR.newMessage.subscribe((message)=>{
       //console.log(message, this.messages);
       this.messages.push(message);
+
+      setTimeout(()=>{
+        this.ScrollToEnd('#chatMessages');
+      },0);
     });
 
     this.userSub = this.systemService.currentUser.subscribe((user)=>{
@@ -64,7 +68,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     // Get userId from url if present
     this.routerSub = this.activeRouter.params.subscribe((params:any) =>{
-      this.chatCode = params['uuid'];
+      this.chatId = params['chatId'];
 
       this.GetChats();
     });
@@ -79,7 +83,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   SendMessage(){
     const message = this.messageForm.controls['message'].value;
-    this.signalR.SendMessage(this.selectedChat.chatCode, message);
+    this.signalR.SendMessage(this.selectedChat.chatId, message);
 
     this.messageForm.reset();
   }
@@ -112,25 +116,44 @@ export class MessagesComponent implements OnInit, OnDestroy {
       this.chats = (chats as any[]);
 
       // // For first time if uuid is not present on url
-      if(this.chatCode !== undefined)
-        this.SelectedChat(this.chatCode);
+      if(this.chatId !== undefined || this.chatId !== null)
+        this.SelectedChat(this.chatId);
 
     });
   }
 
-  SelectedChat(chatCode: any){
-    this.chatService.GetChatDetail(chatCode).then((chat)=>{
-      //console.log(chat);
+  SelectedChat(chatId: any){
+    this.chatService.GetChatDetail(chatId).then((chat: any)=>{
+      if(this.selectedChat !== undefined) this.signalR.LeaveChat(this.selectedChat.chatId);
+      if(chat === null) return;
+
       this.selectedChat = chat;
+      this.signalR.JoinChat(chat.chatId);
+
+      this.chatService.GetMessages(chatId).then((messages: any)=>{
+        this.messages = messages;
+        setTimeout(()=>{
+          this.ScrollToEnd('#chatMessages');
+        },0);
+      });
     });
   }
 
-  getDateTimeNow(): string{
-    const date = new Date().toLocaleString();
-    return date as string;
+  ScrollToEnd(elementName: string){
+    const element = $(elementName)[0];
+    element?.scrollTo(0, element.scrollHeight);  
   }
 
   CloseContactSelectorModal(){
     this.contactForm.reset();
+  }
+
+  OnMessageChange(params: any) {
+    const maxLength = params.target.maxLength;
+    const currentLength = params.target.value.length;
+
+    this.messageLength = currentLength + "/" + maxLength;
+
+    //console.log('change', params.target.maxLength, params.target.value.length);
   }
 }

@@ -1,7 +1,23 @@
 {
     "PAGES":{
         "PAGES":{
-            "SELECT_LANG":"Select Language"
+            "SELECT_LANG":"Select Language",
+            "REGISTER":"Register",
+            "LOGIN":"Login",
+            "PROFILE":"Profile",
+            "SETTINGS":"Settings",
+            "LOGOUT":"Logout",
+            "CONTACTS":"Contacts",
+            "MESSAGES":"Messages",
+            "INFORMATION":"Information",
+            "GDPR":"Privacy and Terms",
+            "SUPPORT":"Support",
+            "FAQ":"FAQ"
+        },
+        "PROFILE":{
+            "EDIT_PROFILE":"Edit Profile",
+            "FOLLOW":"Follow",
+            "FOLLOWED":"Followed"
         },
         "SETTINGS":{
             "PROFILE_TAB":"Profile",
@@ -13,6 +29,17 @@
             "SURNAME_FORM":"Surname",
             "EMAIL_FORM":"Email",
             "SUBMIT_FORM":"Update Profile"
+        },
+        "CONTACTS":{
+            "UNFOLLOW":"Unfollow"
+        },
+        "MESSAGES":{
+            "NEW_CONVERSATION":"New Conversation",
+            "SELECT_TO_CHAT":"Select a contact to chat with",
+            "TYPE_MESSAGE":"Type a message...",
+            "CONTACTS":"Contacts",
+            "CLOSE":"Close",
+            "CHAT":"Chat"
         }
     }
 }

@@ -7,19 +7,19 @@
         <div class="messages-box">
           <div class="list-group rounded-0 border-end-0">
             <button class="btn btn-outline-primary rounded-0 shadow-none border-start-0 border-end-0" data-bs-toggle="modal" data-bs-target="#contactSelector">
-                New Conversation <i class="bi bi-plus-circle"></i>
+                {{ 'PAGES.MESSAGES.NEW_CONVERSATION' | translate }} <i class="bi bi-plus-circle"></i>
             </button>
 
-            <div class="list-group-item list-group-item-action border-end-0 border-top-0" 
+            <div class="list-group-item list-group-item-action border-end-0 border-top-0 p-0" 
                     ngClass="selectedUser === user ? 'active'" 
                     style="cursor: pointer;"
                     *ngFor="let chat of chats">
-                <div class="d-flex align-items-center justify-content-between">
-                    <h6 class="mx-2" [routerLink]="['/pages/messages', chat?.chatId]">
-                        {{chat.chatName}}
-                    </h6>
+                <div class="d-flex align-items-center">
+                    <div class="p-3 flex-fill" [routerLink]="['/pages/messages', chat?.chatId]">
+                        {{chat?.chatName}}
+                    </div>
                     <div class="dropdown">
-                        <button class="btn" id="dropdownChat" data-bs-toggle="dropdown" aria-expanded="false">        
+                        <button class="btn p-3 shadow-none flex-fill" id="dropdownChat" data-bs-toggle="dropdown" aria-expanded="false">        
                             <i class="bi bi-three-dots-vertical"></i>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownChat">
@@ -37,23 +37,25 @@
     <div class="col-sm-8 px-0">
 
         <div class="text-center" style="height: 407px" *ngIf="selectedChat === undefined">
-           Select a contact to chat with
+           {{'PAGES.MESSAGES.SELECT_TO_CHAT' | translate}}
         </div>
 
-        <div class="px-4 py-3 bg-white" style="height: 408px; overflow: auto;" *ngIf="selectedChat !== undefined">
-            <h5>{{selectedChat.chatName}}</h5>
+        <h5 class="p-3 border-bottom my-0">{{selectedChat?.chatName}}</h5>
+        <div class="px-4 bg-white overflow-auto" id="chatMessages" style="height: 500px;" *ngIf="selectedChat !== undefined">
 
-            <!-- Sender Message-->
-            <div class="col-sm-6 col-10" *ngFor="let message of messages">
+            <!-- Message-->
+            <div *ngFor="let message of messages"
+                [ngClass]="user.userId === message.userId ? 'offset-sm-6 col-sm-6 offset-2 col-10 text-end' : 'col-sm-6 col-10'">
                 <div *ngIf="message !== ''">
-                    <div class="bg-secondary rounded py-2 px-3 mb-2 text-small text-white text-break">
-                        {{message}}
+                    <div class="rounded py-2 px-3 mb-2 mt-2 text-small text-white text-break" 
+                        [ngClass]="user.userId === message.userId ? 'bg-primary ' : 'bg-secondary'">
+                        {{message.message}}
                     </div>
-                    <p class="small text-muted">{{getDateTimeNow() | date:'HH:mm | d MMM yyyy'}}</p>
+                    <p class="small text-muted">{{ message.createdAt / 10000 | date:'HH:mm | d MMM'}}</p>
                 </div>
             </div>
 
-            <!-- Reciever Message-->
+            <!-- Sender Message-->
             <!-- <div class="offset-sm-6 col-sm-6 offset-2 col-10 text-end">
             <div class="media-body">
                 <div class="bg-primary rounded py-2 px-3 mb-2">
@@ -68,8 +70,15 @@
         <!-- Typing area -->
         <form [formGroup]="messageForm" (ngSubmit)="SendMessage()">
             <div class="input-group border-top">
-            <input type="text" placeholder="Type a message" class="form-control rounded-0 border-0 shadow-none px-4" formControlName="message">
+            <input maxlength="255" 
+                    (change)="OnMessageChange($event)"
+                    (keyup)="OnMessageChange($event)"
+                    type="text" 
+                    placeholder="{{'PAGES.MESSAGES.TYPE_MESSAGE' | translate}}" 
+                    class="form-control rounded-0 border-0 shadow-none px-4" 
+                    formControlName="message">
             <div class="p-1 d-flex">
+                <div class="align-middle p-2 fw-light">{{messageLength}}</div>
                 <button type="submit" class="btn btn-outline-primary m-1" [disabled]="!messageForm.valid || selectedChat === undefined"> <i class="bi bi-send"></i></button>
             </div>
             </div>
@@ -83,7 +92,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="contactSelectorLabel">Contacts</h5>
+          <h5 class="modal-title" id="contactSelectorLabel">{{'PAGES.MESSAGES.CONTACTS' | translate}}</h5>
         </div>
         <form [formGroup]="contactForm" (ngSubmit)="AddChat()">
             <div class="modal-body">
@@ -97,8 +106,8 @@
                 </ul>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn" data-bs-dismiss="modal" (click)="CloseContactSelectorModal()">Close</button>
-            <button type="submit" class="btn btn-primary" [disabled]="!contactForm.valid" data-bs-dismiss="modal">Chat</button>
+            <button type="button" class="btn" data-bs-dismiss="modal" (click)="CloseContactSelectorModal()">{{'PAGES.MESSAGES.CLOSE' | translate}}</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!contactForm.valid" data-bs-dismiss="modal">{{'PAGES.MESSAGES.CHAT' | translate}}</button>
             </div>
         </form>
       </div>

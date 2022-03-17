@@ -93,4 +93,16 @@ export class ChatService {
         })
     });
   }
+
+  public GetMessages(chatId: any){
+    return new Promise((resolve)=>{
+      return this.httpClient.get(settings.ServiceEndpoint + chatController + "/GetMessages?chatId=" + chatId, {headers: this.httpHeader})
+        .subscribe((res)=> {
+          resolve(res);
+        }, (err)=>{
+          console.log(err);
+          resolve([]);
+        })
+    });
+  }
 }
