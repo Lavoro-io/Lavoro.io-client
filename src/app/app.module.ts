@@ -1,4 +1,4 @@
-import { Injectable, Injector, NgModule } from '@angular/core';
+import { Injectable, Injector, NgModule, PLATFORM_ID } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
@@ -24,7 +24,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { ContactsComponent } from './pages/contacts/contacts.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { SignalRService } from './services/signal-r.service';
-
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -56,11 +56,12 @@ import { SignalRService } from './services/signal-r.service';
     ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: getToken
+        tokenGetter: getToken(new CookieService(document, PLATFORM_ID))
       }
     })
   ],
   providers: [
+    CookieService,
     JwtHelperService,
     UserService, 
     AuthService,
@@ -69,13 +70,15 @@ import { SignalRService } from './services/signal-r.service';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
 
 export function HttpLoaderFactory(http: HttpClient){
   return new TranslateHttpLoader(http);
 }
 
-export function getToken():any {
+export function getToken(cookieService: CookieService):any {
+  return cookieService.get('token');
   return localStorage.getItem('token');
 }
 

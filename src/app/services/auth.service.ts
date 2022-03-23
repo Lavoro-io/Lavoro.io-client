@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { CookieService } from 'ngx-cookie-service';
 import settings from '../../assets/settings.json';
 import { SignalRService } from './signal-r.service';
 import { SystemService } from './system.service';
@@ -26,7 +27,8 @@ export class AuthService implements OnDestroy{
               private router: Router,
               private httpClient: HttpClient,
               private systemService: SystemService,
-              private signalRservice: SignalRService) {
+              private signalRservice: SignalRService,
+              private cookieService: CookieService) {
     this.events();
   }
 
@@ -49,13 +51,14 @@ export class AuthService implements OnDestroy{
   }
 
   public isAuthenticated(): boolean{
-    let token = localStorage.getItem('token')?.toString();
+    let token = this.systemService.GetToken();
     const expired = this.jwtHelper.isTokenExpired(token);
     return !expired;
   }
 
   public logout(){
     this.signalRservice.closeConnection();
+    this.cookieService.deleteAll();
     localStorage.clear();
     this.httpHeader.delete('')
     this.router.navigate(['auth/login']);

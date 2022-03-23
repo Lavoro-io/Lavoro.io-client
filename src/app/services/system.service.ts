@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -6,21 +7,29 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SystemService {
 
-  private tokenValue = new BehaviorSubject(localStorage.getItem('token'));
-  private userValue = new BehaviorSubject(JSON.parse(localStorage.getItem('user') ?? '{}'));
+  private tokenValue = new BehaviorSubject(this.cookieService.get('token'));
+  private userValue = new BehaviorSubject(JSON.parse(this.cookieService.get('user') ?? '{}'));
 
   currentToken = this.tokenValue.asObservable();
   currentUser = this.userValue.asObservable();
 
-  constructor() { }
+  constructor(private cookieService: CookieService) { }
 
   public changeToken(value: any){
-    localStorage.setItem('token', value ?? '');
+    this.cookieService.set('token', value);
     this.tokenValue.next(value);
   }
 
+  public GetToken(){
+    return this.tokenValue.value;
+  }
+
   public changeUser(value: any){
-    localStorage.setItem('user', JSON.stringify(value));
+    this.cookieService.set('user', value);
     this.userValue.next(value);
+  }
+
+  public GetUser(){
+    return this.userValue.value;
   }
 }
