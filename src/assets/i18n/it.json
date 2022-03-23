@@ -1,7 +1,23 @@
 {
     "PAGES":{
         "PAGES":{
-            "SELECT_LANG":"Seleziona Lingua"
+            "SELECT_LANG":"Seleziona Lingua",
+            "REGISTER":"Registrati",
+            "LOGIN":"Accedi",
+            "PROFILE":"Profilo",
+            "SETTINGS":"Impostazioni",
+            "LOGOUT":"Esci",
+            "CONTACTS":"Contatti",
+            "MESSAGES":"Messaggi",
+            "INFORMATION":"Informazioni",
+            "GDPR":"Termini e Condizioni",
+            "SUPPORT":"Assistenza",
+            "FAQ":"FAQ"
+        },
+        "PROFILE":{
+            "EDIT_PROFILE":"Modifica Profilo",
+            "FOLLOW":"Segui",
+            "FOLLOWED":"Segui Già"
         },
         "SETTINGS":{
             "PROFILE_TAB":"Profilo",
@@ -13,6 +29,17 @@
             "SURNAME_FORM":"Cognome",
             "EMAIL_FORM":"Email",
             "SUBMIT_FORM":"Aggiorna Profilo"
+        },
+        "CONTACTS":{
+            "UNFOLLOW":"Smetti di seguire"
+        },
+        "MESSAGES":{
+            "NEW_CONVERSATION":"Nuova conversazione",
+            "SELECT_TO_CHAT":"Seleziona un contatto",
+            "TYPE_MESSAGE":"Scrivi un messaggio...",
+            "CONTACTS":"Contatti",
+            "CLOSE":"Chiudi",
+            "CHAT":"Scrivi"
         }
     }
 }

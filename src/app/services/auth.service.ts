@@ -7,7 +7,7 @@ import settings from '../../assets/settings.json';
 import { SignalRService } from './signal-r.service';
 import { SystemService } from './system.service';
 
-const authController = 'auth/';
+const authController = 'auth';
 
 @Injectable({
   providedIn: 'root'
@@ -87,7 +87,7 @@ export class AuthService implements OnDestroy{
         password: password
       }
 
-      return this.httpClient.post(settings.ServiceEndpoint + authController + 'token', JSON.stringify(body), {headers: this.httpHeader})
+      return this.httpClient.post(settings.ServiceEndpoint + authController + '/token', JSON.stringify(body), {headers: this.httpHeader})
         .subscribe((res)=> {
           resolve(res);
         }, (err)=>{
@@ -106,7 +106,7 @@ export class AuthService implements OnDestroy{
         password: password
       }
 
-      return this.httpClient.post(settings.ServiceEndpoint + authController + 'register', JSON.stringify(body), {headers: this.httpHeader})
+      return this.httpClient.post(settings.ServiceEndpoint + authController + '/register', JSON.stringify(body), {headers: this.httpHeader})
         .subscribe((res: any)=>{
           resolve(res);
         }, (err)=>{

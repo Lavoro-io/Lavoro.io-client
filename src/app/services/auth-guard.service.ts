@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { SignalRService } from './signal-r.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +9,7 @@ import { SignalRService } from './signal-r.service';
 export class AuthGuardService implements CanActivate{
 
   constructor(private auth: AuthService,
-              private router: Router,
-              private signalRservice: SignalRService) { }
+              private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     if(!this.auth.isAuthenticated()){

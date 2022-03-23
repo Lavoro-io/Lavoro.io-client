@@ -11,7 +11,16 @@
         <!-- Profile -->
         <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-                <div class="col-md-4 ">
+                <div class="col-md-4">
+                    <label for="profilePictureInput" class="form-label">Select a profile picture</label>
+                    <input class="form-control" type="file" id="profilePictureInput" (change)="OnProfilePictureChange($event)" accept="image/png, image/jpeg">
+                </div>
+                <div class="col-md-4 mt-3">
+                    <label for="backgroundImageInput" class="form-label">Select a background</label>
+                    <input class="form-control" type="file" id="backgroundImageInput" (change)="OnBackgroundImageChange($event)" accept="image/png, image/jpeg">
+                </div>
+
+                <div class="col-md-4 mt-3">
                     <label for="usernameInput" class="form-label">{{'PAGES.SETTINGS.USERNAME_FORM' | translate}}</label>
                     <input type="text" class="form-control" id="usernameInput" formControlName="username"/>
                 </div>

@@ -2,10 +2,10 @@
   <form class="row g-4 needs-validation" [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
   <!-- <form class="row g-4 needs-validation " [ngClass]="{'was-validated': isValid !== undefined}" [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate> -->
 
-    <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert" [hidden]="isValid || isValid === undefined">
-      Passwords are not matching!
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isValid === false">
+      A user with this email already exist!
       <button type="button" class="btn-close" (click)="isValid = undefined"></button>
-    </div> -->
+    </div>
 
     <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="isValid === true">
       Register successfully! <br/>

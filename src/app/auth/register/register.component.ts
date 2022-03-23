@@ -43,9 +43,12 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(name, surname, email, password).then((res: any)=>{
       this.isValid = res;
-      setTimeout(()=>{
-        this.router.navigate(['auth/login'])
-      },3000);
+
+      if(res){
+        setTimeout(()=>{
+          this.router.navigate(['auth/login'])
+        },3000);
+      }
     });
   }
 
