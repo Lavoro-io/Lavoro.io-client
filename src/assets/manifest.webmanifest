@@ -1,0 +1,18 @@
+{
+    "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+    "short_name": "Lavoro.io",
+    "name": "Lavoro.Io",
+    "icons": [
+      {
+        "src": "/assets/img/logo.svg",
+        "type": "image/svg+xml",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#FFF",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#0B5ED7",
+    "description": "Find your perfect job!"
+}

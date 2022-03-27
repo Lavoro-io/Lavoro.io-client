@@ -1,12 +1,17 @@
-<div class="bg-auth"> 
-  <div class="content-auth bg-light position-absolute start-50 translate-middle-x">
-    
-    <div style="text-align: center;">
-      <i class="bi bi-person-workspace"></i>
-      <br/>
-      Lavoro.IO  
+<div class="bg-auth">  
+  <div class="bg-light content-auth position-absolute start-50 translate-middle-x">
+    <div style="height: 30%;">
+      <div class="d-flex flex-wrap align-items-end justify-content-center align-content-center h-100">
+        <div routerLink="/pages/home" style="cursor: pointer; display: contents;">
+          <h3 class="text-primary">Lavoro.</h3>     
+          <img src="./../../../assets/img/logo.svg" height="52px"/>      
+        </div>
+      </div>  
     </div>
 
-    <router-outlet></router-outlet>
+    <div style="height: 70%;">
+      <router-outlet class="position-relative translate-middle-y"></router-outlet>
+
+    </div>
   </div>
 </div>
