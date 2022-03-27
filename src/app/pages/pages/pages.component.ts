@@ -21,19 +21,21 @@ export class PagesComponent implements OnInit, OnDestroy {
   translations: any[] = [
     {code: 'it', title: 'Italiano (Italia)'},
     {code: 'en', title: 'English (United Kingdom)'},
-  ]
+  ];
+
   languageSelector = new FormGroup({
     language: new FormControl(this.translations[0].code)
-  })
+  });
 
   constructor(private authService: AuthService,
               public translate: TranslateService,
               private systemService: SystemService) {
-    this.translate.addLangs(this.translations.map(lang => lang.code));
-    this.translate.setDefaultLang(this.translations[0].code);
   }
 
   ngOnInit() {
+    this.translate.addLangs(this.translations.map(lang => lang.code));
+    this.translate.setDefaultLang(this.translations[0].code);    
+
     this.events();
   }
 
@@ -48,7 +50,10 @@ export class PagesComponent implements OnInit, OnDestroy {
     });
 
     this.langSub = this.systemService.currentLanguage.subscribe((langCode: any)=>{
-      //console.log(langCode);
+      if(!langCode){
+        this.systemService.changeLanguage(this.translations[0].code);
+      }
+
       this.languageSelector.controls['language'].patchValue(langCode);
       this.langCode = langCode;
       this.translate.use(langCode);

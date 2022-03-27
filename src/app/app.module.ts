@@ -56,7 +56,7 @@ import { CookieService } from 'ngx-cookie-service';
     ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: getToken(new CookieService(document, PLATFORM_ID))
+        tokenGetter: getToken
       }
     })
   ],
@@ -77,9 +77,9 @@ export function HttpLoaderFactory(http: HttpClient){
   return new TranslateHttpLoader(http);
 }
 
-export function getToken(cookieService: CookieService):any {
+export function getToken():any {
+  const cookieService = new CookieService(document, PLATFORM_ID);
   return cookieService.get('token');
-  return localStorage.getItem('token');
 }
 
 // @Injectable()

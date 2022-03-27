@@ -7,9 +7,9 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SystemService {
 
-  private tokenValue = new BehaviorSubject(this.cookieService.get('token'));
-  private userValue = new BehaviorSubject(JSON.parse(this.cookieService.get('user') as any ?? '{}'));
-  private languageValue = new BehaviorSubject(this.cookieService.get('language'))
+  private tokenValue = new BehaviorSubject(this.GetToken());
+  private userValue = new BehaviorSubject(this.GetUser());
+  private languageValue = new BehaviorSubject(this.GetLanguage())
 
   currentToken = this.tokenValue.asObservable();
   currentUser = this.userValue.asObservable();
@@ -23,19 +23,27 @@ export class SystemService {
   }
 
   public GetToken(){
-    return this.tokenValue.value;
+    return this.cookieService.get('token');
   }
 
   public changeUser(value: any){
-    this.cookieService.set('user', value);
+    this.cookieService.set('user', value ?? '{}');
     this.userValue.next(value);
   }
 
   public GetUser(){
-    return this.userValue.value;
+    if(this.cookieService.check('user'))
+      return JSON.parse(this.cookieService.get('user'));
+    else 
+      return {};
   }
 
   public changeLanguage(value: any){
-    this.cookieService.set('language', value ?? '');
+    this.cookieService.set('language', value);
+    this.languageValue.next(value);
+  }
+
+  public GetLanguage(){
+    return this.cookieService.get('language');
   }
 }
